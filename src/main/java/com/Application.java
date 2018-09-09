@@ -23,7 +23,7 @@ public class Application {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
             while (true) {
                 Set<String> result = new HashSet<>();
-                System.out.println("Enter numbers: ");
+                System.out.print("Enter numbers: ");
                 String[] input = reader.readLine().trim().split("\\s+");
                 if (checkNumber(input)) {
                     calculateAmbiguities("", input, result);
