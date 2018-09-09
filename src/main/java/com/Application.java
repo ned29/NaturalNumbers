@@ -85,11 +85,11 @@ public class Application {
                 } else {
                     calculateAmbiguities(ambiguities + numbers[0], Arrays.copyOfRange(numbers, 1, numbers.length), result);
                 }
-            } else if (numbers[0].length() == 2 && !numbers[0].startsWith(ONE)) {
-                if (numbers[0].endsWith(ZERO) && numbers[1].length() == 1) {
+            } else {
+                if (numbers[0].endsWith(ZERO) && numbers[1].length() == 1 && !numbers[0].startsWith(ONE)) {
                     calculateAmbiguities(ambiguities + numbers[0] + numbers[1], Arrays.copyOfRange(numbers, 2, numbers.length), result);
                     calculateAmbiguities(ambiguities + numbers[0].charAt(0) + numbers[1], Arrays.copyOfRange(numbers, 2, numbers.length), result);
-                } else if (!numbers[0].endsWith(ZERO)) {
+                } else if (!numbers[0].endsWith(ZERO) && !numbers[0].startsWith(ONE)) {
                     calculateAmbiguities(ambiguities + numbers[0], Arrays.copyOfRange(numbers, 1, numbers.length), result);
                     calculateAmbiguities(ambiguities + new StringBuilder(numbers[0]).insert(1, ZERO), Arrays.copyOfRange(numbers, 1, numbers.length), result);
                 } else {
