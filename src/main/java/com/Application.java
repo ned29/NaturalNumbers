@@ -48,7 +48,7 @@ public class Application {
     }
 
     /**
-     * This function is using for validation and output our results to console
+     * This function are using for validation and output our results to console
      *
      * @param numbers Set with all possible phone numbers
      */
@@ -71,31 +71,40 @@ public class Application {
      * @param result      Set with results of calculation
      */
     private static void calculateAmbiguities(String ambiguities, String[] numbers, Set<String> result) {
+        //Check that splited number length more than 2
         if (numbers.length > 1 && numbers[0].length() >= 2) {
             if (numbers[0].length() == 3) {
+                //Check that number with length 3 end with 00 and the next number length equals 2. Example 700 23, result 723
                 if (numbers[0].endsWith(DOUBLE_ZERO) && numbers[1].length() == 2) {
                     calculateAmbiguities(ambiguities + numbers[0] + numbers[1], Arrays.copyOfRange(numbers, 2, numbers.length), result);
                     calculateAmbiguities(ambiguities + numbers[0].charAt(0) + numbers[1], Arrays.copyOfRange(numbers, 2, numbers.length), result);
+                    //Check that number with length 3 end with 0 and the next number length equals 1. Example 560 2, result 562
                 } else if (numbers[0].endsWith(ZERO) && numbers[1].length() == 1) {
                     calculateAmbiguities(ambiguities + numbers[0] + numbers[1], Arrays.copyOfRange(numbers, 2, numbers.length), result);
                     calculateAmbiguities(ambiguities + numbers[0].charAt(0) + numbers[1], Arrays.copyOfRange(numbers, 2, numbers.length), result);
+                    //Check that number with length 3 don't end with 0 and between digital also 0. Example 406, result 46
                 } else if (!numbers[0].endsWith(ZERO) && numbers[0].substring(0, 2).endsWith(ZERO)) {
                     calculateAmbiguities(ambiguities + numbers[0], Arrays.copyOfRange(numbers, 1, numbers.length), result);
                     calculateAmbiguities(ambiguities + numbers[0].replace(ZERO, ""), Arrays.copyOfRange(numbers, 1, numbers.length), result);
+                    //For other numbers like 745,123 and others, numbers without zero digital
                 } else {
                     calculateAmbiguities(ambiguities + numbers[0], Arrays.copyOfRange(numbers, 1, numbers.length), result);
                 }
             } else {
+                //Check that number with length 2 end with 0 and the next number length equals 1. Example 70 2, result 73
                 if (numbers[0].endsWith(ZERO) && numbers[1].length() == 1 && !numbers[0].startsWith(ONE)) {
                     calculateAmbiguities(ambiguities + numbers[0] + numbers[1], Arrays.copyOfRange(numbers, 2, numbers.length), result);
                     calculateAmbiguities(ambiguities + numbers[0].charAt(0) + numbers[1], Arrays.copyOfRange(numbers, 2, numbers.length), result);
+                    //Check that number don't end with 0. Example 23, result 203
                 } else if (!numbers[0].endsWith(ZERO) && !numbers[0].startsWith(ONE)) {
                     calculateAmbiguities(ambiguities + numbers[0], Arrays.copyOfRange(numbers, 1, numbers.length), result);
                     calculateAmbiguities(ambiguities + new StringBuilder(numbers[0]).insert(1, ZERO), Arrays.copyOfRange(numbers, 1, numbers.length), result);
+                    //For other numbers
                 } else {
                     calculateAmbiguities(ambiguities + numbers[0], Arrays.copyOfRange(numbers, 1, numbers.length), result);
                 }
             }
+            //For other digital which number length equals 1. Example 1,2,3 and ect.
         } else if (numbers.length != 0) {
             calculateAmbiguities(ambiguities + numbers[0], Arrays.copyOfRange(numbers, 1, numbers.length), result);
         } else {
