@@ -15,6 +15,7 @@ Clone the project and make ```"clean install"```<br/>
 For starting .jar file use ```"java -jar NaturalNumbers.jar"``` command.
 
 ***Important***
+
 Allowed only number and sequence should be up to a three digit number.<br/>
 
 ***Program execution example***
