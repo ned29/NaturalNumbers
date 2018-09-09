@@ -14,7 +14,7 @@ import java.util.Set;
 public class Application {
     private static final Logger LOGGER = LoggerFactory.getLogger(Application.class.getName());
 
-    private static final String TEN = "10";
+    private static final String ONE = "1";
     private static final String ZERO = "0";
     private static final String DOUBLE_ZERO = "00";
 
@@ -71,7 +71,7 @@ public class Application {
      * @param result      Set with results of calculation
      */
     private static void calculateAmbiguities(String ambiguities, String[] numbers, Set<String> result) {
-        if (numbers.length > 1 && numbers[0].length() >= 2 && !numbers[0].equals(TEN)) {
+        if (numbers.length > 1 && numbers[0].length() >= 2) {
             if (numbers[0].length() == 3) {
                 if (numbers[0].endsWith(DOUBLE_ZERO) && numbers[1].length() == 2) {
                     calculateAmbiguities(ambiguities + numbers[0] + numbers[1], Arrays.copyOfRange(numbers, 2, numbers.length), result);
@@ -85,7 +85,7 @@ public class Application {
                 } else {
                     calculateAmbiguities(ambiguities + numbers[0], Arrays.copyOfRange(numbers, 1, numbers.length), result);
                 }
-            } else {
+            } else if (numbers[0].length() == 2 && !numbers[0].startsWith(ONE)) {
                 if (numbers[0].endsWith(ZERO) && numbers[1].length() == 1) {
                     calculateAmbiguities(ambiguities + numbers[0] + numbers[1], Arrays.copyOfRange(numbers, 2, numbers.length), result);
                     calculateAmbiguities(ambiguities + numbers[0].charAt(0) + numbers[1], Arrays.copyOfRange(numbers, 2, numbers.length), result);
